@@ -24,6 +24,7 @@
         
         self.showsFPS = YES;
         self.showsPhysics = YES;
+        self.showsNodeCount = YES;
 
     }
     return self;
@@ -42,7 +43,7 @@
     UITouch *touch = [touches anyObject];
     CGPoint positionInScene = [touch locationInNode:self.scene];
     self.touchedNode = [self.scene nodeAtPoint:positionInScene];
-    if (self.touchedNode.physicsBody.categoryBitMask == kSheepCategory) {
+    if (self.touchedNode.physicsBody.categoryBitMask == kAnimalCategory) {
         NSLog(@"node %@ touched!!!", self.touchedNode.name);
     }
 }
@@ -59,7 +60,7 @@
 #pragma mark - UIGestureRecognizerDelegate
 
 -(void)handleSwipe:(UISwipeGestureRecognizer*)recognizer{
-    if (self.touchedNode &&  self.touchedNode.physicsBody.categoryBitMask == kSheepCategory) {
+    if (self.touchedNode &&  self.touchedNode.physicsBody.categoryBitMask == kAnimalCategory) {
         NSLog(@"node %@ swiped!!!", self.touchedNode.name);
         [self.touchedNode.physicsBody applyImpulse:CGVectorMake(0.0f, 90.0f)];
     }

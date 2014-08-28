@@ -45,30 +45,65 @@
 #pragma mark -- SKPhysicsContactDelegate
 -(void)didBeginContact:(SKPhysicsContact *)contact{
     
-    SKPhysicsBody* sheep = nil;
+    SKPhysicsBody* animal = nil;
     SKPhysicsBody* fence = nil;
+    SKPhysicsBody* goal = nil;
     
-    if (contact.bodyA.categoryBitMask == kSheepCategory) {
-        sheep = contact.bodyA;
-        if (contact.bodyB.categoryBitMask == kFenceCategory) {
-            fence = contact.bodyB;
+    uint32_t bitmask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask;
+    
+    if (bitmask == (kAnimalCategory | kFenceCategory)) {
+        if (contact.bodyA.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyA;
+            if (contact.bodyB.categoryBitMask == kFenceCategory) {
+                fence = contact.bodyB;
+            }
+        }else if (contact.bodyB.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyB;
+            if (contact.bodyA.categoryBitMask == kFenceCategory) {
+                fence = contact.bodyA;
+            }
         }
-        
-    }else if (contact.bodyB.categoryBitMask == kSheepCategory) {
-        sheep = contact.bodyB;
-        if (contact.bodyA.categoryBitMask == kFenceCategory) {
-            fence = contact.bodyA;
+        [self animal:animal didContactFence:fence];
+    }else if (bitmask == (kAnimalCategory | kGoalCategory)){
+        if (contact.bodyA.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyA;
+            if (contact.bodyB.categoryBitMask == kGoalCategory) {
+                goal = contact.bodyB;
+            }
+        }else if (contact.bodyB.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyB;
+            if (contact.bodyA.categoryBitMask == kGoalCategory) {
+                goal = contact.bodyA;
+            }
         }
+        [self animal:animal didContactGoal:goal];
+    }
+
+}
+
+
+-(void) animal:(SKPhysicsBody*)animal didContactFence:(SKPhysicsBody*) fence{
+    
+    
+    if ([animal.node.name isEqualToString:kSheepName] ) {
+        [self.gameScene decrementScore];
+    }else if([animal.node.name isEqualToString:kWolfName] ) {
+        [self.gameScene incrementScore];
     }
     
-    if (sheep && fence){
-        [sheep.node removeAllActions];
-        [sheep.node removeFromParent];
-        
-        [self.gameScene.sheep removeFromParent];
-        self.gameScene.sheep = [self.gameScene createSheep];
-        [self.gameScene addChild:self.gameScene.sheep];
+    [self.gameScene invalidateAnimal];
+
+}
+
+-(void) animal:(SKPhysicsBody*)animal didContactGoal:(SKPhysicsBody*) goal{
+    
+    if ([animal.node.name isEqualToString:kSheepName] ) {
+        [self.gameScene incrementScore];
+    }else if([animal.node.name isEqualToString:kWolfName] ) {
+        [self.gameScene decrementScore];
     }
+    
+    [self.gameScene invalidateAnimal];
 }
 
 -(void)didEndContact:(SKPhysicsContact *)contact{
