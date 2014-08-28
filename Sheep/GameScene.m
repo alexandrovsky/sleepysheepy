@@ -7,7 +7,7 @@
 //
 
 #import "GameScene.h"
-
+#import "GameOverScene.h"
 
 
 @interface GameScene ()
@@ -166,6 +166,12 @@
         [life removeFromParent];
         [self.lifeNodes removeLastObject];
     }
+    
+    if (self.lifeNodes.count == 0) {
+        GameOverScene* gos =[[GameOverScene alloc] initWithScore:self.score andSize:self.size];
+        [self.view presentScene:gos];
+        
+    }
 }
 
 -(SKSpriteNode*) createLife{
@@ -201,10 +207,10 @@
 
 -(void)decrementScore{
     if (!self.incrementFlag) {
-        self.score -= kScoreIncrement * self.level;
-        if (self.score < 0) {
-            self.score = 0;
-        }
+//        self.score -= kScoreIncrement * self.level;
+//        if (self.score < 0) {
+//            self.score = 0;
+//        }
         [self loseLife];
         self.level = 1;
         self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];

@@ -25,6 +25,8 @@
 		362B331419ACC7AE00EEA193 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B331219ACC7AE00EEA193 /* GameView.m */; };
 		362B331719ACCCC200EEA193 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B331619ACCCC200EEA193 /* GameScene.m */; };
 		362B331819ACCCC200EEA193 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B331619ACCCC200EEA193 /* GameScene.m */; };
+		36C7E2E019AF5876001D18D8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C7E2DF19AF5876001D18D8 /* GameOverScene.m */; };
+		36C7E2E119AF5876001D18D8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C7E2DF19AF5876001D18D8 /* GameOverScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		362B331219ACC7AE00EEA193 /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
 		362B331519ACCCC200EEA193 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		362B331619ACCCC200EEA193 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		36C7E2DE19AF5876001D18D8 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		36C7E2DF19AF5876001D18D8 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 				362B331219ACC7AE00EEA193 /* GameView.m */,
 				362B331519ACCCC200EEA193 /* GameScene.h */,
 				362B331619ACCCC200EEA193 /* GameScene.m */,
+				36C7E2DE19AF5876001D18D8 /* GameOverScene.h */,
+				36C7E2DF19AF5876001D18D8 /* GameOverScene.m */,
 			);
 			path = Sheep;
 			sourceTree = "<group>";
@@ -265,6 +271,7 @@
 				362B32E819ACC62200EEA193 /* AppDelegate.m in Sources */,
 				362B331719ACCCC200EEA193 /* GameScene.m in Sources */,
 				362B331319ACC7AE00EEA193 /* GameView.m in Sources */,
+				36C7E2E019AF5876001D18D8 /* GameOverScene.m in Sources */,
 				362B32E419ACC62200EEA193 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +282,7 @@
 			files = (
 				362B331419ACC7AE00EEA193 /* GameView.m in Sources */,
 				362B331819ACCCC200EEA193 /* GameScene.m in Sources */,
+				36C7E2E119AF5876001D18D8 /* GameOverScene.m in Sources */,
 				362B330619ACC62200EEA193 /* SheepTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

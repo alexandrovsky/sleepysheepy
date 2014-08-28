@@ -8,6 +8,7 @@
 
 #import "GameView.h"
 #import "GameScene.h"
+#import "GameOverScene.h"
 
 @interface GameView ()
 @property (nonatomic, weak) SKNode* touchedNode;
@@ -43,9 +44,18 @@
     UITouch *touch = [touches anyObject];
     CGPoint positionInScene = [touch locationInNode:self.scene];
     self.touchedNode = [self.scene nodeAtPoint:positionInScene];
-    if (self.touchedNode.physicsBody.categoryBitMask == kAnimalCategory) {
-        NSLog(@"node %@ touched!!!", self.touchedNode.name);
+    
+    if([self.scene isKindOfClass:GameScene.class]){
+        if (self.touchedNode.physicsBody.categoryBitMask == kAnimalCategory) {
+            NSLog(@"node %@ touched!!!", self.touchedNode.name);
+        }
+    }else if([self.scene isKindOfClass:GameOverScene.class]){
+        if ([self.touchedNode.name isEqualToString:kReplayName] ) {
+            [self presentScene:[[GameScene alloc] initWithSize:self.frame.size]];
+        }
     }
+    
+    
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
