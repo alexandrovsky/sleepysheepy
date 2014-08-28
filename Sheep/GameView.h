@@ -8,6 +8,9 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface GameView : SKView <UIGestureRecognizerDelegate>
+@interface GameView : SKView <UIGestureRecognizerDelegate , SKPhysicsContactDelegate>
 @property (nonatomic, strong) UISwipeGestureRecognizer* swipe;
+
+-(void) animal:(SKPhysicsBody*)animal didContactFence:(SKPhysicsBody*) fence;
+-(void) animal:(SKPhysicsBody*)animal didContactGoal:(SKPhysicsBody*) goal;
 @end

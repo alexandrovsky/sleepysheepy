@@ -170,7 +170,6 @@
     if (self.lifeNodes.count == 0) {
         GameOverScene* gos =[[GameOverScene alloc] initWithScore:self.score andSize:self.size];
         [self.view presentScene:gos];
-        
     }
 }
 

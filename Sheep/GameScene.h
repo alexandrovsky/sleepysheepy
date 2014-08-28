@@ -40,4 +40,5 @@
 -(void) incrementScore;
 -(void) decrementScore;
 -(void) invalidateAnimal;
+
 @end

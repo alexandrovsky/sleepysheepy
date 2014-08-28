@@ -10,6 +10,7 @@
 #import "GameScene.h"
 #import "GameOverScene.h"
 
+
 @interface GameView ()
 @property (nonatomic, weak) SKNode* touchedNode;
 @end
@@ -51,7 +52,9 @@
         }
     }else if([self.scene isKindOfClass:GameOverScene.class]){
         if ([self.touchedNode.name isEqualToString:kReplayName] ) {
-            [self presentScene:[[GameScene alloc] initWithSize:self.frame.size]];
+            GameScene* gs = [[GameScene alloc] initWithSize:self.frame.size];
+            [self presentScene:gs];
+            gs.physicsWorld.contactDelegate = self;
         }
     }
     
@@ -76,13 +79,76 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+
+#pragma mark -- SKPhysicsContactDelegate
+-(void)didBeginContact:(SKPhysicsContact *)contact{
+    
+    SKPhysicsBody* animal = nil;
+    SKPhysicsBody* fence = nil;
+    SKPhysicsBody* goal = nil;
+    
+    uint32_t bitmask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask;
+    
+    if (bitmask == (kAnimalCategory | kFenceCategory)) {
+        if (contact.bodyA.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyA;
+            if (contact.bodyB.categoryBitMask == kFenceCategory) {
+                fence = contact.bodyB;
+            }
+        }else if (contact.bodyB.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyB;
+            if (contact.bodyA.categoryBitMask == kFenceCategory) {
+                fence = contact.bodyA;
+            }
+        }
+        [self animal:animal didContactFence:fence];
+    }else if (bitmask == (kAnimalCategory | kGoalCategory)){
+        if (contact.bodyA.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyA;
+            if (contact.bodyB.categoryBitMask == kGoalCategory) {
+                goal = contact.bodyB;
+            }
+        }else if (contact.bodyB.categoryBitMask == kAnimalCategory) {
+            animal = contact.bodyB;
+            if (contact.bodyA.categoryBitMask == kGoalCategory) {
+                goal = contact.bodyA;
+            }
+        }
+        [self animal:animal didContactGoal:goal];
+    }
+    
 }
-*/
+
+
+-(void) animal:(SKPhysicsBody*)animal didContactFence:(SKPhysicsBody*) fence{
+    
+    GameScene* gs = (GameScene*)self.scene;
+    if ([animal.node.name isEqualToString:kSheepName] ) {
+        if ([gs respondsToSelector:@selector(decrementScore)]) {
+            [gs decrementScore];
+        }
+    }else if([animal.node.name isEqualToString:kWolfName] ) {
+        if ([gs respondsToSelector:@selector(incrementScore)]) {
+            [gs incrementScore];
+        }
+    }
+    if ([gs respondsToSelector:@selector(invalidateAnimal)]) {
+        [gs invalidateAnimal];
+    }
+    
+}
+
+-(void) animal:(SKPhysicsBody*)animal didContactGoal:(SKPhysicsBody*) goal{
+    GameScene* gs = (GameScene*)self.scene;
+    if ([animal.node.name isEqualToString:kSheepName] ) {
+        [gs incrementScore];
+    }else if([animal.node.name isEqualToString:kWolfName] ) {
+        [gs decrementScore];
+    }
+    [gs invalidateAnimal];
+}
+
+-(void)didEndContact:(SKPhysicsContact *)contact{
+}
 
 @end

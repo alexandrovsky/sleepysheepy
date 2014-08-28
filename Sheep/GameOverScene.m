@@ -43,12 +43,5 @@
     return  score;
 }
 
-//-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-//    UITouch* touch = [touches anyObject];
-//    CGPoint positionInScene = [touch locationInNode:self.scene];
-//    SKNode* touchedNode = [self.scene nodeAtPoint:positionInScene];
-//    if ([touchedNode.name isEqualToString:kReplayName] ) {
-//        [self.view presentScene:[[GameScene alloc] initWithSize:self.size]];
-//    }
-//}
+
 @end

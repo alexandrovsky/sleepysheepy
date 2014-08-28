@@ -10,7 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 
-
-@interface ViewController : UIViewController <SKPhysicsContactDelegate>
-
+@class GameView;
+@interface ViewController : UIViewController
+@property (nonatomic, strong) GameView* gameView;
 @end
