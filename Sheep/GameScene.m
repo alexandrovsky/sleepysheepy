@@ -15,6 +15,7 @@
 @property (nonatomic, strong) SKLabelNode* scoreNode;
 @property (nonatomic, assign) CFTimeInterval lastUpdate;
 @property (nonatomic, strong) NSMutableArray* lifeNodes;
+@property (nonatomic, assign) BOOL incrementFlag;
 
 @end
 
@@ -185,23 +186,31 @@
 }
 
 -(void) incrementScore{
-    self.score += kScoreIncrement * self.level;
-    self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
+    if (!self.incrementFlag) {
+        self.score += kScoreIncrement * self.level;
+        self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
+        
+        //    if (self.score > self.level * 10) {
+        //        self.level++;
+        //        self.speed+= 0.2f;
+        //    }
+        self.incrementFlag = YES;
+    }
     
-//    if (self.score > self.level * 10) {
-//        self.level++;
-//        self.speed+= 0.2f;
-//    }
 }
 
 -(void)decrementScore{
-    self.score -= kScoreIncrement * self.level;
-    if (self.score < 0) {
-        self.score = 0;
+    if (!self.incrementFlag) {
+        self.score -= kScoreIncrement * self.level;
+        if (self.score < 0) {
+            self.score = 0;
+        }
+        [self loseLife];
+        self.level = 1;
+        self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
+        self.incrementFlag = YES;
     }
-    [self loseLife];
-    self.level = 1;
-    self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
+    
     
 }
 -(void) invalidateAnimal{
@@ -216,6 +225,7 @@
         self.animal = [self createAnimal];
         [self addChild:self.animal];
         self.lastUpdate = currentTime;
+        self.incrementFlag = NO;
     }
 }
 
