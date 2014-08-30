@@ -22,22 +22,40 @@
         self.physicsBody.contactTestBitMask = kFenceCategory;
         self.physicsBody.collisionBitMask = kFloorCategory | kFenceCategory;
         self.physicsBody.affectedByGravity = YES;
-//        self.position = CGPointMake(20, self.floor.size.height + 20);
         
-//        self.actionMove = [SKAction moveToX:self.frame.size.width duration:5.0f/self.speed];
-        self.actionMoveDone = [SKAction removeFromParent];
+        self.valid = YES;
+        
+        SKAction* invalidBlock =[SKAction runBlock:^{
+            self.valid = NO;
+        }];
+        
+        self.actionInvalidate = [SKAction sequence:@[invalidBlock, [SKAction removeFromParent]]];
+//        self.actionFinishSuccessful = [SKAction performSelector:@selector(finishSuccessful) onTarget:self];
+//        self.actionFinishFail = [SKAction performSelector:@selector(finishFail) onTarget:self];
     }
     return  self;
 }
 
 
 -(void) move{
-    [self runAction:[SKAction sequence:@[self.actionMove, self.actionMoveDone]]];
+    [self runAction:[SKAction sequence:@[self.actionMove, self.actionInvalidate]]];
 }
 
 -(void) invalidate{
-    [self removeFromParent];
 }
+
+-(void) finishSuccessful:(void (^)(void))successBlock{
+    [self runAction:[SKAction sequence:@[//self.actionFinishSuccessful,
+                                         [SKAction runBlock:successBlock],
+                                         self.actionInvalidate]]];
+}
+
+-(void) finishFail:(void (^)(void))failBlock{
+    [self runAction:[SKAction sequence:@[//self.actionFinishFail,
+                                         [SKAction runBlock:failBlock],
+                                         self.actionInvalidate]]];
+}
+
 -(NSInteger)getPoints{
     return kScoreIncrement;
 }

@@ -29,7 +29,7 @@
         
         
         self.level = 1;
-        self.speed = 1;
+        self.speed = kInitSpeed;
 
         self.backgroundColor = [SKColor colorWithRed:0.4f green:0.6f blue:0.8f alpha:1.0f];
         self.physicsWorld.gravity = CGVectorMake(0.0f, -4.8f);
@@ -90,11 +90,14 @@
         self.animal = nil;
     }
     uint32_t rnd = arc4random_uniform(kWolfProbability);
-    if ((rnd % kWolfProbability) == 0) {
+    if ((rnd % kWolfProbability) == 0)
+    {
         self.animal = [self createWolf];
+    }else{
+        self.animal = [self createSheep];
     }
+
     
-    self.animal = [self createSheep];
     self.animal.actionMove = [SKAction moveToX:self.frame.size.width duration:5.0f/self.speed];
     self.animal.position = CGPointMake(20, self.floor.size.height + 20);
     [self.animal move];
@@ -128,7 +131,7 @@
 
 -(void) createLives{
     self.lifeNodes = [NSMutableArray array];
-    float ypos = self.frame.size.height - 60;
+    float ypos = self.floor.size.height/2;
     float xoffset = 60;
     for (int i = 0; i < kInitLifes; i++) {
         SKSpriteNode* life = [self createLife];
@@ -170,11 +173,11 @@
 
 -(void) incrementScore{
     if (!self.incrementFlag) {
-        self.score += kScoreIncrement * self.level;
+        self.score += [self.animal getPoints] * self.level;
         self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
         
         if (self.score > self.level * 10) {
-            self.level++;
+            ++self.level;
             self.speed+= 0.2f;
         }
         self.incrementFlag = YES;
@@ -184,25 +187,20 @@
 
 -(void)decrementScore{
     if (!self.incrementFlag) {
-
         [self loseLife];
         self.level = 1;
         self.speed = 1.0f;
         self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
         self.incrementFlag = YES;
     }
-    
-    
 }
--(void) invalidateAnimal{
-    [self.animal invalidate];
-    self.animal = nil;
-}
+
 
 
 -(void)update:(NSTimeInterval)currentTime{
     NSTimeInterval deltaT = currentTime - self.lastUpdate;
-    if (deltaT > 2 && self.animal == nil) {
+
+    if (deltaT > 2 && ![self.animal isValid]) {
         self.animal = [self createAnimal];
         [self addChild:self.animal];
         self.lastUpdate = currentTime;

@@ -31,3 +31,4 @@
 #define kScoreIncrement     10
 #define kWolfProbability    5
 #define kInitLifes          3
+#define kInitSpeed          1

@@ -125,29 +125,35 @@
     GameScene* gs = (GameScene*)self.scene;
     Animal* a = (Animal*)(animal.node);
     if ([a.name isEqualToString:kSheepName] ) {
-        if ([gs respondsToSelector:@selector(decrementScore)]) {
-            [gs decrementScore];
-        }
+        [a finishFail:^{
+            if ([gs respondsToSelector:@selector(decrementScore)]) {
+                [gs decrementScore];
+            }
+        }];
+        
     }else if([a.name isEqualToString:kWolfName] ) {
-        if ([gs respondsToSelector:@selector(incrementScore)]) {
-            [gs incrementScore];
-        }
+        [a finishSuccessful:^{
+            if ([gs respondsToSelector:@selector(incrementScore)]) {
+                [gs incrementScore];
+            }
+        }];
     }
-    if ([gs respondsToSelector:@selector(invalidateAnimal)]) {
-        [gs invalidateAnimal];
-    }
-    
 }
 
 -(void) animal:(SKPhysicsBody*)animal didContactGoal:(SKPhysicsBody*) goal{
     GameScene* gs = (GameScene*)self.scene;
     Animal* a = (Animal*)(animal.node);
     if ([a.name isEqualToString:kSheepName] ) {
-        [gs incrementScore];
+        [a finishSuccessful:^{
+            [gs incrementScore];
+        }];
+        
     }else if([a.name isEqualToString:kWolfName] ) {
-        [gs decrementScore];
+        [a finishFail:^{
+            [gs decrementScore];
+        }];
+        
     }
-    [gs invalidateAnimal];
 }
 
 -(void)didEndContact:(SKPhysicsContact *)contact{

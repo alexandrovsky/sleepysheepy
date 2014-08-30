@@ -10,4 +10,6 @@
 
 @interface Wolf : Animal
 
+
+
 @end
