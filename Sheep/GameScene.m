@@ -8,7 +8,8 @@
 
 #import "GameScene.h"
 #import "GameOverScene.h"
-
+#import "Sheep.h"
+#import "Wolf.h"
 
 @interface GameScene ()
 @property (nonatomic, strong) SKSpriteNode* floor;
@@ -43,14 +44,17 @@
         self.scoreNode = [self createScore];
         [self addChild:self.scoreNode];
         
+        
         self.goal = [self createGoal];
         [self addChild:self.goal];
         
         [self createLives];
+
         
     }
     return self;
 }
+
 
 
 - (SKSpriteNode*)createFloor {
@@ -80,62 +84,36 @@
     return fence;
 }
 
--(SKSpriteNode *)createAnimal{
+-(Animal*)createAnimal{
     if (self.animal) {
         [self.animal removeFromParent];
         self.animal = nil;
     }
     uint32_t rnd = arc4random_uniform(kWolfProbability);
-    if ((rnd % kWolfProbability) == 0)
-    {
-        return [self createWolf];
+    if ((rnd % kWolfProbability) == 0) {
+        self.animal = [self createWolf];
     }
-    return [self createSheep];
+    
+    self.animal = [self createSheep];
+    self.animal.actionMove = [SKAction moveToX:self.frame.size.width duration:5.0f/self.speed];
+    self.animal.position = CGPointMake(20, self.floor.size.height + 20);
+    [self.animal move];
+    return self.animal;
 }
 
--(SKSpriteNode*) createSheep{
-    SKSpriteNode *sheep = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:(CGSize){60, 80}];
-    [sheep setAnchorPoint:(CGPoint){0.5f, 0.5f}];
-    [sheep setName:kSheepName];
-    [sheep setPhysicsBody:[SKPhysicsBody bodyWithRectangleOfSize:sheep.size]];
-    sheep.physicsBody.dynamic = YES;
-    sheep.physicsBody.categoryBitMask = kAnimalCategory;
-    sheep.physicsBody.contactTestBitMask = kFenceCategory;
-    sheep.physicsBody.collisionBitMask = kFloorCategory | kFenceCategory;
-    sheep.physicsBody.affectedByGravity = YES;
-    sheep.position = CGPointMake(20, self.floor.size.height + 20);
-    
-    SKAction* actionMove = [SKAction moveToX:self.frame.size.width duration:5.0f/self.speed];
-    
-    SKAction* actionMoveDone = [SKAction removeFromParent];
-    [sheep runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-    
+-(Sheep*) createSheep{
+    Sheep* sheep = [[Sheep alloc] init];
     return sheep;
 }
 
--(SKSpriteNode*) createWolf{
-    SKSpriteNode* wolf = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:(CGSize){60, 80}];
-    [wolf setAnchorPoint:(CGPoint){0.5f, 0.5f}];
-    [wolf setName:kWolfName];
-    [wolf setPhysicsBody:[SKPhysicsBody bodyWithRectangleOfSize:wolf.size]];
-    wolf.physicsBody.dynamic = YES;
-    wolf.physicsBody.categoryBitMask = kAnimalCategory;
-    wolf.physicsBody.contactTestBitMask = kFenceCategory;
-    wolf.physicsBody.collisionBitMask = kFloorCategory | kFenceCategory;
-    wolf.physicsBody.affectedByGravity = YES;
-    wolf.position = CGPointMake(20, self.floor.size.height + 20);
-    
-    SKAction* actionMove = [SKAction moveToX:self.frame.size.width duration:5.0f/self.speed];
-    
-    SKAction* actionMoveDone = [SKAction removeFromParent];
-    [wolf runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-    
+-(Wolf*) createWolf{
+    Wolf* wolf = [[Wolf alloc] init];
     return wolf;
 }
 
 -(SKSpriteNode*) createGoal{
-    SKSpriteNode* goal = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(40, 40)];
-    [goal setAnchorPoint:CGPointMake(0.5f, 0.5f)];
+    SKSpriteNode* goal = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(40, 80)];
+    [goal setAnchorPoint:CGPointMake(0.5f, 0.0f)];
     [goal setName:kGoalName];
     [goal setPhysicsBody:[SKPhysicsBody bodyWithEdgeLoopFromRect:goal.frame]];
     goal.physicsBody.dynamic = NO;
@@ -195,23 +173,21 @@
         self.score += kScoreIncrement * self.level;
         self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
         
-        //    if (self.score > self.level * 10) {
-        //        self.level++;
-        //        self.speed+= 0.2f;
-        //    }
+        if (self.score > self.level * 10) {
+            self.level++;
+            self.speed+= 0.2f;
+        }
         self.incrementFlag = YES;
+        [self runAction:self.animal.actionSound];
     }
-    
 }
 
 -(void)decrementScore{
     if (!self.incrementFlag) {
-//        self.score -= kScoreIncrement * self.level;
-//        if (self.score < 0) {
-//            self.score = 0;
-//        }
+
         [self loseLife];
         self.level = 1;
+        self.speed = 1.0f;
         self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
         self.incrementFlag = YES;
     }
@@ -219,7 +195,7 @@
     
 }
 -(void) invalidateAnimal{
-    [self.animal removeFromParent];
+    [self.animal invalidate];
     self.animal = nil;
 }
 

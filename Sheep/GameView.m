@@ -9,7 +9,7 @@
 #import "GameView.h"
 #import "GameScene.h"
 #import "GameOverScene.h"
-
+#import "Animal.h"
 
 @interface GameView ()
 @property (nonatomic, weak) SKNode* touchedNode;
@@ -123,11 +123,12 @@
 -(void) animal:(SKPhysicsBody*)animal didContactFence:(SKPhysicsBody*) fence{
     
     GameScene* gs = (GameScene*)self.scene;
-    if ([animal.node.name isEqualToString:kSheepName] ) {
+    Animal* a = (Animal*)(animal.node);
+    if ([a.name isEqualToString:kSheepName] ) {
         if ([gs respondsToSelector:@selector(decrementScore)]) {
             [gs decrementScore];
         }
-    }else if([animal.node.name isEqualToString:kWolfName] ) {
+    }else if([a.name isEqualToString:kWolfName] ) {
         if ([gs respondsToSelector:@selector(incrementScore)]) {
             [gs incrementScore];
         }
@@ -140,9 +141,10 @@
 
 -(void) animal:(SKPhysicsBody*)animal didContactGoal:(SKPhysicsBody*) goal{
     GameScene* gs = (GameScene*)self.scene;
-    if ([animal.node.name isEqualToString:kSheepName] ) {
+    Animal* a = (Animal*)(animal.node);
+    if ([a.name isEqualToString:kSheepName] ) {
         [gs incrementScore];
-    }else if([animal.node.name isEqualToString:kWolfName] ) {
+    }else if([a.name isEqualToString:kWolfName] ) {
         [gs decrementScore];
     }
     [gs invalidateAnimal];

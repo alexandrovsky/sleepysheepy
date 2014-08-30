@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "362B32D319ACC62100EEA193"
-               BuildableName = "Sheep.app"
+               BuildableName = "SleepySheepy.app"
                BlueprintName = "SleepySheepy"
                ReferencedContainer = "container:SleepySheepy.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "362B32F719ACC62200EEA193"
-               BuildableName = "SheepTests.xctest"
+               BuildableName = "SleepySheepyTests.xctest"
                BlueprintName = "SleepySheepyTests"
                ReferencedContainer = "container:SleepySheepy.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "362B32D319ACC62100EEA193"
-            BuildableName = "Sheep.app"
+            BuildableName = "SleepySheepy.app"
             BlueprintName = "SleepySheepy"
             ReferencedContainer = "container:SleepySheepy.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "362B32D319ACC62100EEA193"
-            BuildableName = "Sheep.app"
+            BuildableName = "SleepySheepy.app"
             BlueprintName = "SleepySheepy"
             ReferencedContainer = "container:SleepySheepy.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "362B32D319ACC62100EEA193"
-            BuildableName = "Sheep.app"
+            BuildableName = "SleepySheepy.app"
             BlueprintName = "SleepySheepy"
             ReferencedContainer = "container:SleepySheepy.xcodeproj">
          </BuildableReference>

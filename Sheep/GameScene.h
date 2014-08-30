@@ -7,26 +7,12 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "Animal.h"
 
-#define kFloorCategory      1
-#define kFenceCategory      2
-#define kAnimalCategory     4
-#define kGoalCategory       8
-
-#define kSheepName          @"sheep"
-#define kWolfName           @"wolf"
-#define kFenceName          @"fence"
-#define kFloorName          @"floor"
-#define kGoalName           @"goal"
-#define kLifeName           @"life"
-
-#define kScoreIncrement     10
-#define kWolfProbability    5
-#define kInitLifes          3
 @interface GameScene : SKScene
 
 @property (nonatomic, strong) SKSpriteNode* fence;
-@property (atomic, strong) SKSpriteNode* animal;
+@property (atomic, strong) Animal* animal;
 @property (nonatomic, strong) SKSpriteNode* goal;
 
 @property (nonatomic, assign) NSInteger score;
@@ -35,7 +21,7 @@
 
 
 
-- (SKSpriteNode*) createAnimal;
+- (Animal*) createAnimal;
 
 -(void) incrementScore;
 -(void) decrementScore;

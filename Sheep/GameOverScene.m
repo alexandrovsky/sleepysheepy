@@ -38,7 +38,7 @@
 
 -(SKLabelNode*)createScore:(NSInteger) scoreValue{
     SKLabelNode* score = [[SKLabelNode alloc] initWithFontNamed:@"Arial"];
-    score.text = [NSString stringWithFormat: @"Score: %d", scoreValue];
+    score.text = [NSString stringWithFormat: @"Score: %ld",(long)scoreValue];
     score.position = CGPointMake(self.size.width/2, self.size.height * 0.8f);
     return  score;
 }

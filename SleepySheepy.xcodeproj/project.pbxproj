@@ -27,6 +27,14 @@
 		362B331819ACCCC200EEA193 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 362B331619ACCCC200EEA193 /* GameScene.m */; };
 		36C7E2E019AF5876001D18D8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C7E2DF19AF5876001D18D8 /* GameOverScene.m */; };
 		36C7E2E119AF5876001D18D8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 36C7E2DF19AF5876001D18D8 /* GameOverScene.m */; };
+		36C7E2E319AF6C49001D18D8 /* baalamb1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 36C7E2E219AF6C49001D18D8 /* baalamb1.wav */; };
+		36C7E2E419AF6C49001D18D8 /* baalamb1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 36C7E2E219AF6C49001D18D8 /* baalamb1.wav */; };
+		36EDF1CA19B1FBFB00A8590E /* Animal.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EDF1C919B1FBFB00A8590E /* Animal.m */; };
+		36EDF1CB19B1FBFB00A8590E /* Animal.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EDF1C919B1FBFB00A8590E /* Animal.m */; };
+		36EDF1D019B200E500A8590E /* Sheep.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EDF1CF19B200E500A8590E /* Sheep.m */; };
+		36EDF1D119B200E500A8590E /* Sheep.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EDF1CF19B200E500A8590E /* Sheep.m */; };
+		36EDF1D419B2019600A8590E /* Wolf.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EDF1D319B2019600A8590E /* Wolf.m */; };
+		36EDF1D519B2019600A8590E /* Wolf.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EDF1D319B2019600A8590E /* Wolf.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +73,13 @@
 		362B331619ACCCC200EEA193 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		36C7E2DE19AF5876001D18D8 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		36C7E2DF19AF5876001D18D8 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		36C7E2E219AF6C49001D18D8 /* baalamb1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = baalamb1.wav; sourceTree = "<group>"; };
+		36EDF1C819B1FBFB00A8590E /* Animal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animal.h; sourceTree = "<group>"; };
+		36EDF1C919B1FBFB00A8590E /* Animal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animal.m; sourceTree = "<group>"; };
+		36EDF1CE19B200E500A8590E /* Sheep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sheep.h; sourceTree = "<group>"; };
+		36EDF1CF19B200E500A8590E /* Sheep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sheep.m; sourceTree = "<group>"; };
+		36EDF1D219B2019600A8590E /* Wolf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wolf.h; sourceTree = "<group>"; };
+		36EDF1D319B2019600A8590E /* Wolf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wolf.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +141,7 @@
 		362B32DD19ACC62200EEA193 /* Sheep */ = {
 			isa = PBXGroup;
 			children = (
+				36C7E2E219AF6C49001D18D8 /* baalamb1.wav */,
 				362B32E619ACC62200EEA193 /* AppDelegate.h */,
 				362B32E719ACC62200EEA193 /* AppDelegate.m */,
 				362B32EF19ACC62200EEA193 /* ViewController.h */,
@@ -134,10 +150,8 @@
 				362B32DE19ACC62200EEA193 /* Supporting Files */,
 				362B331119ACC7AE00EEA193 /* GameView.h */,
 				362B331219ACC7AE00EEA193 /* GameView.m */,
-				362B331519ACCCC200EEA193 /* GameScene.h */,
-				362B331619ACCCC200EEA193 /* GameScene.m */,
-				36C7E2DE19AF5876001D18D8 /* GameOverScene.h */,
-				36C7E2DF19AF5876001D18D8 /* GameOverScene.m */,
+				36EDF1CC19B200C300A8590E /* scenes */,
+				36EDF1CD19B200CD00A8590E /* animal */,
 			);
 			path = Sheep;
 			sourceTree = "<group>";
@@ -169,6 +183,30 @@
 				362B330219ACC62200EEA193 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		36EDF1CC19B200C300A8590E /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				362B331519ACCCC200EEA193 /* GameScene.h */,
+				362B331619ACCCC200EEA193 /* GameScene.m */,
+				36C7E2DE19AF5876001D18D8 /* GameOverScene.h */,
+				36C7E2DF19AF5876001D18D8 /* GameOverScene.m */,
+			);
+			name = scenes;
+			sourceTree = "<group>";
+		};
+		36EDF1CD19B200CD00A8590E /* animal */ = {
+			isa = PBXGroup;
+			children = (
+				36EDF1C819B1FBFB00A8590E /* Animal.h */,
+				36EDF1C919B1FBFB00A8590E /* Animal.m */,
+				36EDF1CE19B200E500A8590E /* Sheep.h */,
+				36EDF1CF19B200E500A8590E /* Sheep.m */,
+				36EDF1D219B2019600A8590E /* Wolf.h */,
+				36EDF1D319B2019600A8590E /* Wolf.m */,
+			);
+			name = animal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +287,7 @@
 			files = (
 				362B32F319ACC62200EEA193 /* Images.xcassets in Resources */,
 				362B32E219ACC62200EEA193 /* InfoPlist.strings in Resources */,
+				36C7E2E319AF6C49001D18D8 /* baalamb1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				362B330419ACC62200EEA193 /* InfoPlist.strings in Resources */,
+				36C7E2E419AF6C49001D18D8 /* baalamb1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +310,12 @@
 				362B32F119ACC62200EEA193 /* ViewController.m in Sources */,
 				362B32E819ACC62200EEA193 /* AppDelegate.m in Sources */,
 				362B331719ACCCC200EEA193 /* GameScene.m in Sources */,
+				36EDF1D419B2019600A8590E /* Wolf.m in Sources */,
 				362B331319ACC7AE00EEA193 /* GameView.m in Sources */,
+				36EDF1CA19B1FBFB00A8590E /* Animal.m in Sources */,
 				36C7E2E019AF5876001D18D8 /* GameOverScene.m in Sources */,
 				362B32E419ACC62200EEA193 /* main.m in Sources */,
+				36EDF1D019B200E500A8590E /* Sheep.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,8 +325,11 @@
 			files = (
 				362B331419ACC7AE00EEA193 /* GameView.m in Sources */,
 				362B331819ACCCC200EEA193 /* GameScene.m in Sources */,
+				36EDF1CB19B1FBFB00A8590E /* Animal.m in Sources */,
+				36EDF1D119B200E500A8590E /* Sheep.m in Sources */,
 				36C7E2E119AF5876001D18D8 /* GameOverScene.m in Sources */,
 				362B330619ACC62200EEA193 /* SheepTests.m in Sources */,
+				36EDF1D519B2019600A8590E /* Wolf.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
