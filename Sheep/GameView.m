@@ -75,7 +75,7 @@
 -(void)handleSwipe:(UISwipeGestureRecognizer*)recognizer{
     if (self.touchedNode &&  self.touchedNode.physicsBody.categoryBitMask == kAnimalCategory) {
         NSLog(@"node %@ swiped!!!", self.touchedNode.name);
-        [self.touchedNode.physicsBody applyImpulse:CGVectorMake(0.0f, 90.0f)];
+        [self.touchedNode.physicsBody applyImpulse:CGVectorMake(0.0f, 150.0f)];
     }
 }
 

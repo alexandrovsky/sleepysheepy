@@ -56,7 +56,7 @@
 }
 
 -(NSInteger)getPoints{
-    return -kScoreIncrement;
+    return kScoreIncrement;
 }
 
 @end

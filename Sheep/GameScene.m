@@ -14,6 +14,7 @@
 @interface GameScene ()
 @property (nonatomic, strong) SKSpriteNode* floor;
 @property (nonatomic, strong) SKLabelNode* scoreNode;
+@property (nonatomic, strong) SKLabelNode* levelNode;
 @property (nonatomic, assign) CFTimeInterval lastUpdate;
 @property (nonatomic, strong) NSMutableArray* lifeNodes;
 @property (nonatomic, assign) BOOL incrementFlag;
@@ -32,18 +33,24 @@
         self.speed = kInitSpeed;
 
         self.backgroundColor = [SKColor colorWithRed:0.4f green:0.6f blue:0.8f alpha:1.0f];
-        self.physicsWorld.gravity = CGVectorMake(0.0f, -4.8f);
+        self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
 //        self.scaleMode = SKSceneScaleModeAspectFill;
         
         self.floor = [self createFloor];
         [self addChild:self.floor];
         
-        self.fence = [self createFence];
-        [self addChild:self.fence];
+        self.fences = [self createFencesWithCount:0];
+        [self.fences enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [self addChild:(SKNode*)obj];
+        }];
+        
         
         self.scoreNode = [self createScore];
         [self addChild:self.scoreNode];
         
+        
+        self.levelNode = [self createLevel];
+        [self addChild:self.levelNode];
         
         self.goal = [self createGoal];
         [self addChild:self.goal];
@@ -70,6 +77,33 @@
     return floor;
 }
 
+-(NSMutableArray*)createFencesWithCount:(NSInteger)count{
+    NSInteger oldCount = 0;
+    if (self.fences) {
+        oldCount = self.fences.count;
+        [self.fences enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [(SKNode*)obj removeFromParent];
+        }];
+    }
+
+    NSMutableArray* fences = [NSMutableArray array];
+    if (count == 0) {
+        SKSpriteNode* fence = [self createFence];
+        fence.position = CGPointMake(self.frame.size.width/2, self.floor.size.height);
+        [fences addObject:fence];
+    }else{
+        float xstart = self.floor.size.width*0.3f;
+        float xstep = self.floor.size.width*0.6f / count;
+        for (int i = 0; i < count; i++) {
+            SKSpriteNode* fence = [self createFence];
+            fence.position = CGPointMake(xstart+xstep*i, self.floor.size.height);
+            [fences addObject:fence];
+        }
+    }
+    
+    
+    return fences;
+}
 
 - (SKSpriteNode*)createFence {
     SKSpriteNode *fence = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:(CGSize){20, 60}];
@@ -80,7 +114,7 @@
     fence.physicsBody.categoryBitMask = kFenceCategory;
     fence.physicsBody.contactTestBitMask = kAnimalCategory;
     fence.physicsBody.collisionBitMask = kFloorCategory;
-    fence.position = CGPointMake(self.frame.size.width/2, self.floor.size.height);
+    
     return fence;
 }
 
@@ -166,7 +200,16 @@
     SKLabelNode* score = [[SKLabelNode alloc] initWithFontNamed:@"Arial"];
     score.fontSize = 36;
     score.fontColor = [SKColor grayColor];
-    score.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
+    score.text = [NSString stringWithFormat:@"Score: %lu", (unsigned long)self.score];
+    score.position = CGPointMake(self.frame.size.width*0.5, self.frame.size.height*0.8);
+    return score;
+}
+
+-(SKLabelNode*)createLevel{
+    SKLabelNode* score = [[SKLabelNode alloc] initWithFontNamed:@"Arial"];
+    score.fontSize = 36;
+    score.fontColor = [SKColor grayColor];
+    score.text = [NSString stringWithFormat:@"Level: %lu", (unsigned long)self.level];
     score.position = CGPointMake(self.frame.size.width*0.8, self.frame.size.height*0.8);
     return score;
 }
@@ -174,11 +217,19 @@
 -(void) incrementScore{
     if (!self.incrementFlag) {
         self.score += [self.animal getPoints] * self.level;
-        self.scoreNode.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.score];
+        self.scoreNode.text = [NSString stringWithFormat:@"Score: %lu", (unsigned long)self.score];
         
         if (self.score > self.level * 10) {
             ++self.level;
+            self.levelNode.text = [NSString stringWithFormat:@"Level: %lu", (unsigned long)self.level];
             self.speed+= 0.2f;
+            if (self.level % 5 == 0) {
+                self.fences = [self createFencesWithCount:self.fences.count+1];
+                [self.fences enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    [self addChild:(SKNode*)obj];
+                }];
+                self.speed = kInitSpeed;
+            }
         }
         self.incrementFlag = YES;
         [self runAction:self.animal.actionSound];

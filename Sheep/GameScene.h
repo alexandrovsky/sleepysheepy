@@ -11,7 +11,8 @@
 
 @interface GameScene : SKScene
 
-@property (nonatomic, strong) SKSpriteNode* fence;
+
+@property (nonatomic, strong) NSMutableArray* fences;
 @property (atomic, strong) Animal* animal;
 @property (nonatomic, strong) SKSpriteNode* goal;
 
