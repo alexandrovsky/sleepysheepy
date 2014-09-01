@@ -8,14 +8,33 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+
+@protocol FailAnimatable <NSObject>
+
+@property(nonatomic, strong) NSMutableArray* failTextures;
+-(void)createFailAnimation;
+@end
+
+
+@protocol Physical <NSObject>
+@property (nonatomic,strong)NSMutableArray* joints;
+@property (nonatomic,strong)NSMutableArray* bones;
+-(void) createPhysics;
+
+@end
+
+
+
+
 @interface Animal : SKSpriteNode
 @property (nonatomic, strong) SKAction* actionMove;
 @property (nonatomic, strong) SKAction* actionInvalidate;
 @property (nonatomic, strong) SKAction* actionSound;
-//@property (nonatomic, strong) SKAction* actionFinishSuccessful;
-//@property (nonatomic, strong) SKAction* actionFinishFail;
 @property (nonatomic, readonly, getter = getPoints) NSInteger points;
 @property (nonatomic, assign, getter = isValid) BOOL valid;
+
+
+-(SKPhysicsBody*) createPhysicsBodyWithSize:(CGSize)size;
 
 -(void) move;
 //-(void) invalidate;

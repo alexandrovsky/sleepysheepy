@@ -8,7 +8,7 @@
 
 #import "Animal.h"
 
-@interface Wolf : Animal
+@interface Wolf : Animal <FailAnimatable>
 
 
 

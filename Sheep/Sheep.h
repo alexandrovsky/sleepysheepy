@@ -8,6 +8,6 @@
 
 #import "Animal.h"
 
-@interface Sheep : Animal
+@interface Sheep : Animal <FailAnimatable>
 
 @end

@@ -119,22 +119,28 @@
 }
 
 -(Animal*)createAnimal{
+
     if (self.animal) {
         [self.animal removeFromParent];
+
         self.animal = nil;
     }
     uint32_t rnd = arc4random_uniform(kWolfProbability);
-    if ((rnd % kWolfProbability) == 0)
-    {
+    if ((rnd % kWolfProbability) == 0){
         self.animal = [self createWolf];
     }else{
-        self.animal = [self createSheep];
+        self.animal =  [self createSheep];
     }
 
+    
+    [self addChild:self.animal];
     
     self.animal.actionMove = [SKAction moveToX:self.frame.size.width duration:5.0f/self.speed];
     self.animal.position = CGPointMake(20, self.floor.size.height + 20);
     [self.animal move];
+    
+    
+    
     return self.animal;
 }
 
@@ -184,6 +190,7 @@
     
     if (self.lifeNodes.count == 0) {
         GameOverScene* gos =[[GameOverScene alloc] initWithScore:self.score andSize:self.size];
+        self.physicsWorld.speed = 0.0f;
         [self.view presentScene:gos];
     }
 }
@@ -222,14 +229,14 @@
         if (self.score > self.level * 10) {
             ++self.level;
             self.levelNode.text = [NSString stringWithFormat:@"Level: %lu", (unsigned long)self.level];
-            self.speed+= 0.2f;
-            if (self.level % 5 == 0) {
-                self.fences = [self createFencesWithCount:self.fences.count+1];
-                [self.fences enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    [self addChild:(SKNode*)obj];
-                }];
-                self.speed = kInitSpeed;
-            }
+            self.speed+= 0.125f;
+//            if (self.level % 5 == 0) {
+//                self.fences = [self createFencesWithCount:self.fences.count+1];
+//                [self.fences enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//                    [self addChild:(SKNode*)obj];
+//                }];
+//                self.speed = kInitSpeed;
+//            }
         }
         self.incrementFlag = YES;
         [self runAction:self.animal.actionSound];
@@ -249,11 +256,11 @@
 
 
 -(void)update:(NSTimeInterval)currentTime{
-    NSTimeInterval deltaT = currentTime - self.lastUpdate;
 
-    if (deltaT > 2 && ![self.animal isValid]) {
+
+    if (![self.animal isValid]) {
         self.animal = [self createAnimal];
-        [self addChild:self.animal];
+        
         self.lastUpdate = currentTime;
         self.incrementFlag = NO;
     }

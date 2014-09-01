@@ -8,49 +8,50 @@
 
 #import "Wolf.h"
 
-@interface Wolf()
-
-@property(nonatomic, strong) NSMutableArray* bloodTextures;
-
-@end
 
 
 @implementation Wolf
+
+@synthesize failTextures;
 
 -(instancetype) init{
     self = [super init];
     if (self) {
         self.name = kWolfName;
         self.color = [SKColor blackColor];
-        [self createBloodAnimation];
+        [self createFailAnimation];
     }
     return self;
 }
 
-
--(void)createBloodAnimation{
-    self.bloodTextures = [NSMutableArray arrayWithCapacity:5];
+#pragma mark - FailAnimatable
+-(void)createFailAnimation{
+    self.failTextures = [NSMutableArray arrayWithCapacity:5];
     for (int i = 1; i <= 5; i++) {
         NSString* textureName = [NSString stringWithFormat:@"blood_c_000%d",i];
         SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
-        [self.bloodTextures addObject:texture];
+        [self.failTextures addObject:texture];
     }
     for (int i = 1; i <= 5; i++) {
         NSString* textureName = [NSString stringWithFormat:@"blood_d_000%d",i];
         SKTexture* texture = [SKTexture textureWithImageNamed:textureName];
-        [self.bloodTextures addObject:texture];
+        [self.failTextures addObject:texture];
     }
 }
 
 -(void)finishSuccessful:(void (^)(void))successBlock{
+    SKSpriteNode* blood = [SKSpriteNode spriteNodeWithTexture:self.failTextures[0]];
+    blood.position = self.position;
+    [self.parent addChild:blood];
+    [blood runAction:[SKAction sequence:@[[SKAction animateWithTextures:self.failTextures timePerFrame:0.1f], [SKAction removeFromParent]]]];
     [super finishSuccessful:successBlock];
 }
 
 -(void) finishFail:(void (^)(void))failBlock{
-    SKSpriteNode* blood = [SKSpriteNode spriteNodeWithTexture:self.bloodTextures[0]];
+    SKSpriteNode* blood = [SKSpriteNode spriteNodeWithTexture:self.failTextures[0]];
     blood.position = self.position;
     [self.parent addChild:blood];
-    [blood runAction:[SKAction sequence:@[[SKAction animateWithTextures:self.bloodTextures timePerFrame:0.1f], [SKAction removeFromParent]]]];
+    [blood runAction:[SKAction sequence:@[[SKAction animateWithTextures:self.failTextures timePerFrame:0.1f], [SKAction removeFromParent]]]];
     [super finishFail:failBlock];
     
 }

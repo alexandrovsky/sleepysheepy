@@ -8,7 +8,10 @@
 
 #import "Animal.h"
 
+
 @implementation Animal
+
+
 
 
 -(instancetype)init{
@@ -16,12 +19,7 @@
     if (self) {
 
         self.anchorPoint = CGPointMake(0.5f, 0.5f);
-        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
-        self.physicsBody.dynamic = YES;
-        self.physicsBody.categoryBitMask = kAnimalCategory;
-        self.physicsBody.contactTestBitMask = kFenceCategory;
-        self.physicsBody.collisionBitMask = kFloorCategory | kFenceCategory;
-        self.physicsBody.affectedByGravity = YES;
+        self.physicsBody = [self createPhysicsBodyWithSize:self.size];
         
         self.valid = YES;
         
@@ -30,12 +28,22 @@
         }];
         
         self.actionInvalidate = [SKAction sequence:@[invalidBlock, [SKAction removeFromParent]]];
-//        self.actionFinishSuccessful = [SKAction performSelector:@selector(finishSuccessful) onTarget:self];
-//        self.actionFinishFail = [SKAction performSelector:@selector(finishFail) onTarget:self];
     }
     return  self;
 }
 
+
+
+-(SKPhysicsBody*) createPhysicsBodyWithSize:(CGSize)size{
+    SKPhysicsBody* physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+    physicsBody.dynamic = YES;
+    physicsBody.categoryBitMask = kAnimalCategory;
+    physicsBody.contactTestBitMask = kFenceCategory;
+    physicsBody.collisionBitMask = kFloorCategory | kFenceCategory;
+    physicsBody.affectedByGravity = YES;
+    
+    return physicsBody;
+}
 
 -(void) move{
     [self runAction:[SKAction sequence:@[self.actionMove, self.actionInvalidate]]];
