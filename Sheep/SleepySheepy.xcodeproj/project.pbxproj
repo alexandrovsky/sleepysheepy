@@ -20,6 +20,8 @@
 		3611AAAC19C9D11A0037B579 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAA919C9D11A0037B579 /* Main.storyboard */; };
 		3611AAB019C9D1420037B579 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3611AAAE19C9D1420037B579 /* GameScene.m */; };
 		3611AAB119C9D1420037B579 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAAF19C9D1420037B579 /* GameScene.sks */; };
+		3611AAB519C9DA7F0037B579 /* FMMParallaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3611AAB419C9DA7F0037B579 /* FMMParallaxNode.m */; };
+		3611AAB719C9DB8A0037B579 /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAB619C9DB8A0037B579 /* cloud.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,9 @@
 		3611AAAD19C9D1420037B579 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = SleepySheepy/GameScene.h; sourceTree = SOURCE_ROOT; };
 		3611AAAE19C9D1420037B579 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameScene.m; path = SleepySheepy/GameScene.m; sourceTree = SOURCE_ROOT; };
 		3611AAAF19C9D1420037B579 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = SleepySheepy/GameScene.sks; sourceTree = SOURCE_ROOT; };
+		3611AAB319C9DA7F0037B579 /* FMMParallaxNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMMParallaxNode.h; path = SleepySheepy/FMMParallaxNode.h; sourceTree = SOURCE_ROOT; };
+		3611AAB419C9DA7F0037B579 /* FMMParallaxNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMMParallaxNode.m; path = SleepySheepy/FMMParallaxNode.m; sourceTree = SOURCE_ROOT; };
+		3611AAB619C9DB8A0037B579 /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud.png; sourceTree = "<group>"; };
 		36203F9B19C792FC006FA680 /* SleepySheepy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepySheepy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -61,6 +66,8 @@
 		360A1CFA19C8621800D026F4 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				3611AAB319C9DA7F0037B579 /* FMMParallaxNode.h */,
+				3611AAB419C9DA7F0037B579 /* FMMParallaxNode.m */,
 				3611AA9119C9D0320037B579 /* Sheep.h */,
 				3611AA9219C9D0320037B579 /* Sheep.m */,
 				3611AA9319C9D0320037B579 /* Wolf.h */,
@@ -84,6 +91,7 @@
 		36203F9219C792FC006FA680 = {
 			isa = PBXGroup;
 			children = (
+				3611AAB619C9DB8A0037B579 /* cloud.png */,
 				3611AAA719C9D11A0037B579 /* LaunchScreen.xib */,
 				3611AAA919C9D11A0037B579 /* Main.storyboard */,
 				3611AAA519C9D0F00037B579 /* Images.xcassets */,
@@ -195,6 +203,7 @@
 				3611AAA319C9D0DE0037B579 /* Info.plist in Resources */,
 				3611AAB119C9D1420037B579 /* GameScene.sks in Resources */,
 				3611AAAB19C9D11A0037B579 /* LaunchScreen.xib in Resources */,
+				3611AAB719C9DB8A0037B579 /* cloud.png in Resources */,
 				3611AAA619C9D0F00037B579 /* Images.xcassets in Resources */,
 				3611AAAC19C9D11A0037B579 /* Main.storyboard in Resources */,
 			);
@@ -208,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3611AA9619C9D0320037B579 /* Wolf.m in Sources */,
+				3611AAB519C9DA7F0037B579 /* FMMParallaxNode.m in Sources */,
 				3611AA9019C9D0230037B579 /* Animal.m in Sources */,
 				3611AA9B19C9D0600037B579 /* GameOverViewController.m in Sources */,
 				3611AA9C19C9D0600037B579 /* GameViewController.m in Sources */,

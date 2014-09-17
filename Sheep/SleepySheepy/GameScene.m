@@ -11,11 +11,12 @@
 #import "Animal.h"
 #import "Sheep.h"
 #import "Wolf.h"
-
+#import "FMMParallaxNode.h"
 
 @interface GameScene()
 @property(nonatomic, strong)NSMutableArray* lifes;
 @property (nonatomic, strong) Animal* animal;
+@property (nonatomic, strong) FMMParallaxNode* parallaxClouds;
 @property (nonatomic, strong) SKNode* fence;
 @property (nonatomic, strong) SKNode* ground;
 @property (nonatomic, strong) SKNode* startingpoint;
@@ -96,13 +97,31 @@
     self.scoreLabel = (SKLabelNode*)[self childNodeWithName:@"score"];
     
     [self createLifes];
-    
+    [self createScrollingClouds];
 //    CGMutablePathRef path = CGPathCreateMutable();
 //    CGPathMoveToPoint(path, NULL, self.fence.position.x, self.fence.position.y);
 //    CGPathAddLineToPoint(path, NULL, self.startingpoint.position.x, self.startingpoint.position.x);
 //    self.debugShapeNode = [SKShapeNode shapeNodeWithPath:path];
 //    [self addChild:self.debugShapeNode];
     
+    
+}
+
+-(void)createScrollingClouds{
+    NSArray* parallaxCloudsNames = @[@"cloud.png", @"cloud.png"];
+    
+    CGSize cloudSize = CGSizeMake(200.0, 200.0);
+
+    self.parallaxClouds = [[FMMParallaxNode alloc] initWithBackgrounds:parallaxCloudsNames
+                                                                       size:cloudSize
+                                                       pointsPerSecondSpeed:50.0f];
+    
+    self.parallaxClouds.position = CGPointMake(self.frame.size.width+cloudSize.width, self.frame.size.height/2.0);
+    
+    [self.parallaxClouds randomizeNodesPositions];
+    
+    
+    [self addChild:self.parallaxClouds];
     
 }
 
@@ -273,8 +292,12 @@
 
     
     CFTimeInterval deltaTime = currentTime - self.lastFrameTime;
-    [self.animal update:deltaTime];
     
+    //update nodes:
+    [self.animal update:deltaTime];
+    [self.parallaxClouds update:currentTime];
+    
+    // finaly update the time
     self.lastFrameTime = currentTime;
 }
 
