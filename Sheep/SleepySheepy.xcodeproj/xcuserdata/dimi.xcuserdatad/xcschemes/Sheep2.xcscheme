@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "36203F9A19C792FC006FA680"
-               BuildableName = "Sheep2.app"
-               BlueprintName = "Sheep2"
-               ReferencedContainer = "container:Sheep2.xcodeproj">
+               BuildableName = "SleepySheepy.app"
+               BlueprintName = "SleepySheepy"
+               ReferencedContainer = "container:SleepySheepy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "36203FB819C792FC006FA680"
                BuildableName = "Sheep2Tests.xctest"
                BlueprintName = "Sheep2Tests"
-               ReferencedContainer = "container:Sheep2.xcodeproj">
+               ReferencedContainer = "container:SleepySheepy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "36203FB819C792FC006FA680"
                BuildableName = "Sheep2Tests.xctest"
                BlueprintName = "Sheep2Tests"
-               ReferencedContainer = "container:Sheep2.xcodeproj">
+               ReferencedContainer = "container:SleepySheepy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "36203F9A19C792FC006FA680"
-            BuildableName = "Sheep2.app"
-            BlueprintName = "Sheep2"
-            ReferencedContainer = "container:Sheep2.xcodeproj">
+            BuildableName = "SleepySheepy.app"
+            BlueprintName = "SleepySheepy"
+            ReferencedContainer = "container:SleepySheepy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "36203F9A19C792FC006FA680"
-            BuildableName = "Sheep2.app"
-            BlueprintName = "Sheep2"
-            ReferencedContainer = "container:Sheep2.xcodeproj">
+            BuildableName = "SleepySheepy.app"
+            BlueprintName = "SleepySheepy"
+            ReferencedContainer = "container:SleepySheepy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "36203F9A19C792FC006FA680"
-            BuildableName = "Sheep2.app"
-            BlueprintName = "Sheep2"
-            ReferencedContainer = "container:Sheep2.xcodeproj">
+            BuildableName = "SleepySheepy.app"
+            BlueprintName = "SleepySheepy"
+            ReferencedContainer = "container:SleepySheepy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
