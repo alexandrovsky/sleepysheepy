@@ -13,6 +13,8 @@
 #import "Wolf.h"
 #import "FMMParallaxNode.h"
 
+#import "AppDelegate.h"
+
 @interface GameScene()
 @property(nonatomic, strong)NSMutableArray* lifes;
 @property (nonatomic, strong) Animal* animal;
@@ -22,10 +24,12 @@
 @property (nonatomic, strong) SKNode* startingpoint;
 @property (nonatomic, strong) SKNode* endingpoint;
 @property (nonatomic, strong) SKLabelNode* scoreLabel;
+@property (nonatomic, strong) SKLabelNode* speedLabel;
 @property (nonatomic, assign) CGFloat speed;
-@property (nonatomic, assign) NSUInteger score;
+
 @property (nonatomic, assign) NSUInteger scoreIncrement;
 @property (nonatomic, assign) BOOL userTouchedAnimal;
+@property (nonatomic, assign) BOOL userDidSwipe;
 
 
 
@@ -33,6 +37,8 @@
 
 
 @property (nonatomic, assign) CFTimeInterval lastFrameTime;
+
+@property(nonatomic, weak) AVMIDIPlayer* backgroundMusic;
 @end
 
 
@@ -58,20 +64,18 @@
     swipeDown.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:swipeDown];
     
+    AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.backgroundMusic = appDelegate.midiPlayer;
     
     self.lastFrameTime = CACurrentMediaTime();
 }
 
 
-
 -(void)setupScene{
-
     self.physicsWorld.contactDelegate = self;
     
-#warning fixme: load from plist
-    self.speed = kInitSpeed;
-    self.scoreIncrement = 1;
 
+    
     self.startingpoint = [self childNodeWithName:@"startingpoint"];
     self.endingpoint = [self childNodeWithName:@"endingpoint"];
     self.endingpoint.hidden = NO;
@@ -80,8 +84,6 @@
     self.endingpoint.physicsBody.categoryBitMask = CollisionCategoryEndingpoint;
     self.endingpoint.physicsBody.contactTestBitMask = CollisionCategoryAnimal;
     
-    self.animal = [self createAnimal];
-
     
 
     
@@ -95,16 +97,28 @@
     
     
     self.scoreLabel = (SKLabelNode*)[self childNodeWithName:@"score"];
-    
-    [self createLifes];
+    self.speedLabel =  (SKLabelNode*)[self childNodeWithName:@"speed"];
     [self createScrollingClouds];
-//    CGMutablePathRef path = CGPathCreateMutable();
-//    CGPathMoveToPoint(path, NULL, self.fence.position.x, self.fence.position.y);
-//    CGPathAddLineToPoint(path, NULL, self.startingpoint.position.x, self.startingpoint.position.x);
-//    self.debugShapeNode = [SKShapeNode shapeNodeWithPath:path];
-//    [self addChild:self.debugShapeNode];
+//    [self reset];
+}
+
+
+-(void) reset{
+    #warning fixme: load from plist
+    self.speed = kInitSpeed;
+    self.scoreIncrement = kScoreIncrement;
+    self.score = 0;
+    [self.lifes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SKNode* life  = (SKNode*)obj;
+        [life removeFromParent];
+    }];
     
-    
+    self.animal = [self createAnimal];
+    [self createLifes];
+    [self runAction:[SKAction sequence:@[[SKAction waitForDuration:1000.0f],
+                                         [SKAction runBlock:^{
+        self.paused = NO;
+    }]]]];
 }
 
 -(void)createScrollingClouds{
@@ -179,7 +193,13 @@
 
 -(void) updateScore{
     self.score += self.scoreIncrement;
+    self.speed += kSpeedIncrement;
+    if (self.speed > kMaxSpeed) {
+        self.speed = kMaxSpeed;
+    }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.score];
+    self.speedLabel.text = [NSString stringWithFormat:@"Speed: %4.2f", self.speed];
+    self.backgroundMusic.rate = self.speed / kInitSpeed;
 }
 
 
@@ -201,6 +221,7 @@
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     self.userTouchedAnimal = NO;
+    self.userDidSwipe = YES;
 }
 
 
@@ -212,27 +233,60 @@
     if(recognizer.state == UIGestureRecognizerStateBegan){
         
     }else if(recognizer.state == UIGestureRecognizerStateEnded){
+        self.userDidSwipe = YES;
         if (self.userTouchedAnimal && !self.animal.isJumping){
-            [self.animal jumpWithImpulse:CGVectorMake(50.0f, 300)];
+            [self.animal jumpWithImpulse:CGVectorMake(self.animal.speed/2, 270)];
         }
     }
     NSLog(@"swipe up");
 }
 -(void)handleSwipeDown:(UISwipeGestureRecognizer *)recognizer {
-    NSLog(@"swipe down");
     
-}
-
--(void)animalContactsFence{
-    CGFloat wait = 2000;
-    [self.animal touchedFenceWithFinishBlock:^{
-        [self.animal runAction:[SKAction waitForDuration:wait]completion:^{
+    if(recognizer.state == UIGestureRecognizerStateBegan){
+        
+    }else if(recognizer.state == UIGestureRecognizerStateEnded){
+        self.userDidSwipe = YES;
+        if (self.userTouchedAnimal && !self.animal.isJumping){
+            [self.animal jumpWithImpulse:CGVectorMake(self.animal.speed/2, -270)];
+            self.animal.physicsBody.collisionBitMask = 0;
+            self.animal.physicsBody.contactTestBitMask = 0;
             
             if ([self.animal.name isEqualToString:@"sheep"]) {
                 [self loseLife];
             }else if ([self.animal.name isEqualToString:@"wolf"]){
             }
             
+            
+            [self.animal runAction:[SKAction waitForDuration:kAnimalResetTimeout] completion:^{
+                [self resetAnimal];
+            }];
+            
+            
+        }
+    }
+    
+    
+    NSLog(@"swipe down");
+    
+}
+
+
+
+-(void)animalContactsFence{
+    CGFloat wait = 1.0f;
+    
+    if (!self.animal.isJumping) {
+        wait = 0.0f;
+    }
+    
+    if ([self.animal.name isEqualToString:@"sheep"]) {
+        [self loseLife];
+    }else if ([self.animal.name isEqualToString:@"wolf"]){
+    }
+    
+    
+    [self.animal touchedFenceWithFinishBlock:^{
+        [self.animal runAction:[SKAction waitForDuration:wait*kAnimalResetTimeout]completion:^{
             [self resetAnimal];
         }];
     }];
@@ -240,16 +294,21 @@
 
 
 -(void)animalContactsEndpoint{
-    CGFloat wait = 2000;
+    CGFloat wait = 1.0f;
+    
+    if (!self.animal.isJumping) {
+        wait = 0.0f;
+    }
+    
+    if ([self.animal.name isEqualToString:@"sheep"]) {
+        [self updateScore];
+    }else if ([self.animal.name isEqualToString:@"wolf"]){
+        [self loseLife];
+    }
+    
+    
     [self.animal  touchedEndpointWithFinishBlock:^{
-        [self.animal runAction:[SKAction waitForDuration:wait]completion:^{
-            
-            if ([self.animal.name isEqualToString:@"sheep"]) {
-                [self updateScore];
-            }else if ([self.animal.name isEqualToString:@"wolf"]){
-                [self loseLife];
-            }
-            
+        [self.animal runAction:[SKAction waitForDuration:wait*kAnimalResetTimeout]completion:^{
             [self resetAnimal];
         }];
     }];
@@ -283,13 +342,6 @@
     if (self.paused) {
         return;
     }
-    
-//    CGMutablePathRef path = CGPathCreateMutable();
-//    CGPathMoveToPoint(path, NULL, self.fence.position.x, self.fence.position.y);
-//    CGPathAddLineToPoint(path, NULL, self.animal.position.x, self.animal.position.y);
-//    self.debugShapeNode.path = path;
-    
-
     
     CFTimeInterval deltaTime = currentTime - self.lastFrameTime;
     

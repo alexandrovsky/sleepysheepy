@@ -13,7 +13,6 @@
 		3611AA9B19C9D0600037B579 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3611AA9819C9D0600037B579 /* GameOverViewController.m */; };
 		3611AA9C19C9D0600037B579 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3611AA9A19C9D0600037B579 /* GameViewController.m */; };
 		3611AA9F19C9D06D0037B579 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3611AA9E19C9D06D0037B579 /* AppDelegate.m */; };
-		3611AAA319C9D0DE0037B579 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAA119C9D0DE0037B579 /* Info.plist */; };
 		3611AAA419C9D0DE0037B579 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3611AAA219C9D0DE0037B579 /* main.m */; };
 		3611AAA619C9D0F00037B579 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAA519C9D0F00037B579 /* Images.xcassets */; };
 		3611AAAB19C9D11A0037B579 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAA719C9D11A0037B579 /* LaunchScreen.xib */; };
@@ -22,7 +21,28 @@
 		3611AAB119C9D1420037B579 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAAF19C9D1420037B579 /* GameScene.sks */; };
 		3611AAB519C9DA7F0037B579 /* FMMParallaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3611AAB419C9DA7F0037B579 /* FMMParallaxNode.m */; };
 		3611AAB719C9DB8A0037B579 /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 3611AAB619C9DB8A0037B579 /* cloud.png */; };
+		3611AABC19CB0F110037B579 /* schlafkindchenschlaf_chor.mid in Resources */ = {isa = PBXBuildFile; fileRef = 3611AABB19CB0F110037B579 /* schlafkindchenschlaf_chor.mid */; };
+		36E60FDA19DEDF8C000710BA /* Yamaha_XG_Sound_Set.sf2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 36E60FD719DEDE70000710BA /* Yamaha_XG_Sound_Set.sf2 */; };
+		36E60FDB19DEDF8C000710BA /* FreeFont.sf2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 36E60FD519DEDE65000710BA /* FreeFont.sf2 */; };
+		36E60FDC19DEDF8C000710BA /* piano.sf2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3611AAB919CB0EC10037B579 /* piano.sf2 */; };
+		36E60FDD19DEDF8C000710BA /* schlafkindchenschlaf_chor.mid in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3611AABB19CB0F110037B579 /* schlafkindchenschlaf_chor.mid */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		36E60FD919DEDF67000710BA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				36E60FDA19DEDF8C000710BA /* Yamaha_XG_Sound_Set.sf2 in CopyFiles */,
+				36E60FDB19DEDF8C000710BA /* FreeFont.sf2 in CopyFiles */,
+				36E60FDC19DEDF8C000710BA /* piano.sf2 in CopyFiles */,
+				36E60FDD19DEDF8C000710BA /* schlafkindchenschlaf_chor.mid in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3611AA8E19C9D0230037B579 /* Animal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animal.h; path = SleepySheepy/Animal.h; sourceTree = SOURCE_ROOT; };
@@ -49,7 +69,11 @@
 		3611AAB319C9DA7F0037B579 /* FMMParallaxNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMMParallaxNode.h; path = SleepySheepy/FMMParallaxNode.h; sourceTree = SOURCE_ROOT; };
 		3611AAB419C9DA7F0037B579 /* FMMParallaxNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMMParallaxNode.m; path = SleepySheepy/FMMParallaxNode.m; sourceTree = SOURCE_ROOT; };
 		3611AAB619C9DB8A0037B579 /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud.png; sourceTree = "<group>"; };
+		3611AAB919CB0EC10037B579 /* piano.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = piano.sf2; sourceTree = "<group>"; };
+		3611AABB19CB0F110037B579 /* schlafkindchenschlaf_chor.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = schlafkindchenschlaf_chor.mid; sourceTree = "<group>"; };
 		36203F9B19C792FC006FA680 /* SleepySheepy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepySheepy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		36E60FD519DEDE65000710BA /* FreeFont.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = FreeFont.sf2; sourceTree = "<group>"; };
+		36E60FD719DEDE70000710BA /* Yamaha_XG_Sound_Set.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Yamaha_XG_Sound_Set.sf2; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +115,10 @@
 		36203F9219C792FC006FA680 = {
 			isa = PBXGroup;
 			children = (
+				36E60FD719DEDE70000710BA /* Yamaha_XG_Sound_Set.sf2 */,
+				36E60FD519DEDE65000710BA /* FreeFont.sf2 */,
+				3611AAB919CB0EC10037B579 /* piano.sf2 */,
+				3611AABB19CB0F110037B579 /* schlafkindchenschlaf_chor.mid */,
 				3611AAB619C9DB8A0037B579 /* cloud.png */,
 				3611AAA719C9D11A0037B579 /* LaunchScreen.xib */,
 				3611AAA919C9D11A0037B579 /* Main.storyboard */,
@@ -153,6 +181,7 @@
 				36203F9719C792FC006FA680 /* Sources */,
 				36203F9819C792FC006FA680 /* Frameworks */,
 				36203F9919C792FC006FA680 /* Resources */,
+				36E60FD919DEDF67000710BA /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -200,11 +229,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3611AAA319C9D0DE0037B579 /* Info.plist in Resources */,
 				3611AAB119C9D1420037B579 /* GameScene.sks in Resources */,
 				3611AAAB19C9D11A0037B579 /* LaunchScreen.xib in Resources */,
 				3611AAB719C9DB8A0037B579 /* cloud.png in Resources */,
 				3611AAA619C9D0F00037B579 /* Images.xcassets in Resources */,
+				3611AABC19CB0F110037B579 /* schlafkindchenschlaf_chor.mid in Resources */,
 				3611AAAC19C9D11A0037B579 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SleepySheepy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = SleepySheepy;
 			};
@@ -343,6 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SleepySheepy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = SleepySheepy;
 			};

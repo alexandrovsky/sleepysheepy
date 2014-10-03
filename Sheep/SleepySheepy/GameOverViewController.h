@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface GameOverViewController : UIViewController
-
+@property (weak, nonatomic) IBOutlet UILabel *lblScore;
+@property (nonatomic,assign) NSInteger score;
 @end

@@ -31,35 +31,36 @@
 
 @implementation GameViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
 
     // Configure the view.
-
     self.skView.showsFPS = YES;
     self.skView.showsNodeCount = YES;
     self.skView.showsPhysics = YES;
     /* Sprite Kit applies additional optimizations to improve rendering performance */
     self.skView.ignoresSiblingOrder = YES;
     
-    [self resetScene];
+    [self setupScene];
+    
+    
 }
 
-- (BOOL)shouldAutorotate
-{
+-(void)viewDidAppear:(BOOL)animated{
+    GameScene* game = (GameScene*)(self.skView.scene);
+    [game reset];
+}
+
+- (BOOL)shouldAutorotate{
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
-{
+- (NSUInteger)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskLandscape;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -67,32 +68,30 @@
 }
 
 - (IBAction)pauseButtonPressed:(id)sender forEvent:(UIEvent *)event {
-    
     self.skView.scene.paused = !self.skView.scene.paused;
-    
-//    [self.skView.scene removeFromParent];
-//    [self.skView presentScene:nil];
-//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
--(void)resetScene{
-    // Create and configure the scene.
+-(void)setupScene{
     GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
     scene.gameDelegate = self;
     scene.scaleMode = SKSceneScaleModeAspectFill;
-    // Present the scene.
-    [self.skView presentScene:scene transition:[SKTransition fadeWithDuration:0.5f]];
+    [self.skView presentScene:scene]; // transition:[SKTransition doorsOpenHorizontalWithDuration:0.5f]];
 }
+
 -(void)closeSceneWithGameStats:(NSDictionary *)stats{
     if ([stats[@"GameCloseOption"] isEqualToString:GameCloseOptionFinish]) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            NSLog(@"dismissed");
-        }];
-//        GameOverViewController* govc = [[GameOverViewController alloc] initWithNibName:@"Main" bundle:[NSBundle mainBundle]];
-//        [self presentViewController:govc animated:YES completion:^{
-//            NSLog(@"govc presented");
-//        }];
+        [self performSegueWithIdentifier:@"GoToGameOverSegue" sender:self];
+        [self setupScene];
+    }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([segue.identifier isEqualToString:@"GoToGameOverSegue"]) {
+        GameOverViewController* govc = segue.destinationViewController;
+        GameScene* game =(GameScene*)self.skView.scene;
+        govc.score = game.score;
     }
     
 }

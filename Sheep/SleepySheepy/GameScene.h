@@ -13,11 +13,13 @@ static NSString* const GameCloseOptionPause = @"GameCloseOptionPause";
 
 @protocol GameSceneDelegate <NSObject>
 
--(void) resetScene;
+-(void) setupScene;
 -(void) closeSceneWithGameStats:(NSDictionary*)stats;
 @end
 
 @interface GameScene : SKScene<SKPhysicsContactDelegate>
+@property (nonatomic, assign) NSUInteger score;
 @property(nonatomic, weak)id<GameSceneDelegate> gameDelegate;
 -(void)didBeginContact:(SKPhysicsContact *)contact;
+-(void) reset;
 @end

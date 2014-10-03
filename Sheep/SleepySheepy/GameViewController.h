@@ -15,6 +15,6 @@
 
 
 
--(void) resetScene;
+-(void) setupScene;
 -(void) closeSceneWithGameStats:(NSDictionary*)stats;
 @end

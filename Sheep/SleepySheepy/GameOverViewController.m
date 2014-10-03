@@ -16,13 +16,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.lblScore.text = [NSString stringWithFormat:@"Score: %d",self.score];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)againButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"Game over dismissed");
+    }];
+}
+
+
 
 /*
 #pragma mark - Navigation

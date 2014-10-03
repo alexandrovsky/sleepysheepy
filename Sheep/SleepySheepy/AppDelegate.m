@@ -15,9 +15,42 @@
 @implementation AppDelegate
 
 
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    NSError *error = [[NSError alloc] init];
+    
+
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"schlafkindchenschlaf_chor" withExtension:@"mid"];
+//    NSURL *bank = [[NSBundle mainBundle] URLForResource:@"Yamaha_XG_Sound_Set" withExtension:@"sf2"];
+    NSURL *bank = [[NSBundle mainBundle] URLForResource:@"FreeFont" withExtension:@"sf2"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMusic:) name:@"startMusic" object:nil];
+    
+    
+    // midi bank file, you can download from http://www.sf2midi.com/
+   
+    self.midiPlayer = [[AVMIDIPlayer alloc] initWithContentsOfURL:url soundBankURL:bank error:&error];
+    if (error) {
+        NSLog(@"error = %@", error);
+    }else{
+        self.midiPlayer.rate = 1.0f;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"startMusic" object:nil];
+//        [self.midiPlayer prepareToPlay];
+//        [self.midiPlayer play:^{
+//            NSLog(@"finished playing midi");
+//        }];
+    }
+    
     return YES;
+}
+
+-(void)startMusic:(NSNotification*)notification{
+    [self.midiPlayer prepareToPlay];
+    self.midiPlayer.currentPosition = 0.0f;
+    [self.midiPlayer play:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"startMusic" object:nil];
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -39,7 +72,8 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

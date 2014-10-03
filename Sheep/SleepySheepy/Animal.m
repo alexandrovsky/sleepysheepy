@@ -40,7 +40,7 @@
 
 
 -(void)update:(NSTimeInterval)deltaTime{
-//    NSLog(@"%@ update",self.name);
+    NSLog(@"%@ update with speed %f",self.name, self.speed);
     switch (self.state) {
         case AnimalStateRunning:
             if (!self.isJumping) {
